@@ -40,8 +40,7 @@ public class SubjectDao {
 		int row = 0;
 		DBUtil dbutil = new DBUtil();
 		Connection conn = dbutil.getConnection();
-		String subjectName = "";
-		int time = 0;
+	
 		/* INSERT쿼리
 		 INSERT INTO subject (subject_name, subject_time, createdate, updatedate) VALUES(?, ?, NOW(), NOW());
 		*/

@@ -5,9 +5,11 @@ import java.sql.*;
 import java.util.*;
 
 import util.DBUtil;
+import vo.Subject;
+import vo.Teacher;
 
 public class TeacherDao {
-	// 1) list
+	// 1) 강사목록
 	/*
 	 issue : 교과목이 연결되지 않은 강사는 출력되지 않는다. inner join -> outer join
 	 
@@ -46,6 +48,24 @@ public class TeacherDao {
 			}
 			
 		return arrList;
+	}
+	// 2) 강사추가
+	public int insertTeacher(Teacher teacher) throws Exception {
+		int row = 0;
+		DBUtil dbutil = new DBUtil();
+		Connection conn = dbutil.getConnection();
+	
+		/* INSERT쿼리
+		 INSERT INTO teacher (teacher_id, teacher_name, teacher_history, createdate, updatedate) VALUES(?, ?, ?, NOW(), NOW());
+		*/
+		String sql="INSERT INTO teacher (teacher_id, teacher_name, teacher_history, createdate, updatedate) VALUES(?, ?, ?, NOW(), NOW())";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, teacher.getTeacherId());
+		stmt.setString(2, teacher.getTeacherName());
+		stmt.setString(3, teacher.getTeacherHistory());
+		row = stmt.executeUpdate();
+		
+		return row;
 	}
 	
 	// count(*)
