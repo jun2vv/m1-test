@@ -12,11 +12,13 @@
 	if(request.getParameter("currentPage") != null){
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
+	
 	// 페이지당 출력할 행의 수
-	int rowPerPage = 10;
+	int rowPerPage = 5;
 	// 페이지당 시작 행번호
 	int beginRow = (currentPage-1) * rowPerPage;
 	
+	// 전체행의수 구하기 DAO에 메서드로 만들어서 호출
 	int totalRow = listDao.selectTeacherCnt();
 	
 	int lastPage = totalRow / rowPerPage;
@@ -60,23 +62,22 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <body>
+	<div class="container">
 	<h1>subject_list</h1>
-	<table>
-		<tr>
-			<td>teacher_no</td>
-			<td>teacher_id</td>
-			<td>teacher_name</td>
-			<td>subject_name</td>
-			<td>groupConcat</td>
+	<table class="table table-bordered">
+		<tr class="table-danger">
+			<td>강사ID</td>
+			<td>강사이름</td>
+			<td>담당과목</td>
 		</tr>
 		
 		<%
 			for(HashMap<String, Object> map : listArr) {
-				
 		%>
 				<tr>
-					<td><%=map.get("teacherNo") %></td>
 					<td><%=map.get("teacherId") %></td>
 					<td><%=map.get("teacherName") %></td>
 					<td><%=map.get("groupConcat") %></td>
@@ -116,6 +117,7 @@
 		<%	
 			}
 		%>
+	</div>
 		
 </body>
 </html>

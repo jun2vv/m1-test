@@ -20,7 +20,7 @@ public class TeacherDao {
 	 
 	 */
 	public ArrayList<HashMap<String, Object>> selectTeacherListByPage(int beginRow, int rowPerPage) throws Exception {
-		
+			// ArrayList<HashMap<String, Object>> 을 반환해야하니 객체생성
 			ArrayList<HashMap<String,Object>> arrList = new ArrayList<HashMap<String,Object>>();
 			DBUtil dbutil = new DBUtil();
 			Connection conn = dbutil.getConnection();
@@ -30,7 +30,7 @@ public class TeacherDao {
 					+ "   ON t.teacher_no = ts.teacher_no\r\n"
 					+ "      LEFT OUTER JOIN subject s\r\n"
 					+ "         ON ts.subject_no = s.subject_no\r\n"
-					+ "GROUP BY t.teacher_no,t.teacher_id,t.teacher_name; ";
+					+ "GROUP BY t.teacher_no,t.teacher_id,t.teacher_name LIMIT ?, ?; ";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, beginRow);
 			stmt.setInt(2, rowPerPage);
@@ -48,14 +48,15 @@ public class TeacherDao {
 		return arrList;
 	}
 	
-	
-	
 	// count(*)
 	public int selectTeacherCnt() throws Exception {
 		// 반환할 전체 행의 수
 		int row = 0;
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
+		/*
+		  SELECT COUNT(*) FROM teacher
+		*/
 		PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM teacher");
 		ResultSet rs = stmt.executeQuery();
 		if(rs.next()) {
