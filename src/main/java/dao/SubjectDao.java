@@ -100,6 +100,7 @@ public class SubjectDao {
 		ResultSet rs = stmt.executeQuery();
 		
 		if(rs.next()) {
+			subject = new Subject();
 			subject.setSubjectNo(rs.getInt("subjectNo"));
 			subject.setSubjectName(rs.getString("subjectName"));
 			subject.setSubjectTime(rs.getInt("subjectTime"));
@@ -123,8 +124,9 @@ public class SubjectDao {
 		ResultSet rs = stmt.executeQuery();
 		rs = stmt.executeQuery();
 		if(rs.next()) {
-			row = rs.getInt("COUNT(*)");
+			row = rs.getInt(1);
 		}
 		return row;
+		
 	}
 }

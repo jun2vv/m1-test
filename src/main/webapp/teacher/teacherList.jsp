@@ -1,28 +1,23 @@
+<%@page import="java.util.*"%>
+<%@page import="dao.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="vo.*" %>
-<%@ page import = "dao.*" %>
-<%@ page import = "util.*" %>
-<%@ page import = "java.util.*" %>
 
 <%
-	// SubjectDao 클래스 호출하기 위한객체
-	SubjectDao sDao = new SubjectDao();
+	// 메서드를 사용하기위해 Dao클래스 호출
+	TeacherDao listDao = new TeacherDao();
 
-	// 메서드 매개변수
-	
 	// 페이징 부분
 	//현재페이지 변수
 	int currentPage = 1;
 	if(request.getParameter("currentPage") != null){
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
-
 	// 페이지당 출력할 행의 수
 	int rowPerPage = 10;
 	// 페이지당 시작 행번호
 	int beginRow = (currentPage-1) * rowPerPage;
 	
-	int totalRow = sDao.selectSubjectCnt();
+	int totalRow = listDao.selectTeacherCnt();
 	
 	int lastPage = totalRow / rowPerPage;
 	//rowPerPage가 딱 나뉘어 떨어지지 않으면 그 여분을 보여주기 위해 +1
@@ -52,10 +47,12 @@
 			maxPage = lastPage;
 		}
 
-	// 모든행을 출력하기위해 Subject 배열을 만듬
-	ArrayList<Subject> list = sDao.selectSubjectListByPage(beginRow, rowPerPage);
-
+	// 리스트를 출력하기 위해 반환타입에 맞는 메서드 호출
+	ArrayList<HashMap<String, Object>> listArr = listDao.selectTeacherListByPage(beginRow, rowPerPage);
 	
+	
+
+
 %>
 <!DOCTYPE html>
 <html>
@@ -67,23 +64,28 @@
 	<h1>subject_list</h1>
 	<table>
 		<tr>
-			<td>subject_no</td>
+			<td>teacher_no</td>
+			<td>teacher_id</td>
+			<td>teacher_name</td>
 			<td>subject_name</td>
-			<td>subject_time</td>
+			<td>groupConcat</td>
 		</tr>
-		<%
-			for(Subject s : list) {
-		%>	
-				<tr>
-					<td><%=s.getSubjectNo() %></td>
-					<td><a href="<%=request.getContextPath() %>/subject/subjectOne.jsp?subjectNo=<%=s.getSubjectNo() %>"><%=s.getSubjectName() %></a></td>
-					<td><%=s.getSubjectTime() %></td>
-				</tr>		
-		<% 	}
-		%>
 		
+		<%
+			for(HashMap<String, Object> map : listArr) {
+				
+		%>
+				<tr>
+					<td><%=map.get("teacherNo") %></td>
+					<td><%=map.get("teacherId") %></td>
+					<td><%=map.get("teacherName") %></td>
+					<td><%=map.get("groupConcat") %></td>
+				</tr>
+		<% 
+			}
+		%>
 	</table>
-			<div><a href="<%=request.getContextPath() %>/subject/subjectInsert.jsp">과목추가</a></div>
+	
 		<% 
 			// 최소페이지가 1보다크면 이전페이지(이전페이지는 만약 내가 11페이지면 1페이지로 21페이지면 11페이지로)버튼
 			if(minPage>1) {
@@ -114,5 +116,6 @@
 		<%	
 			}
 		%>
+		
 </body>
 </html>

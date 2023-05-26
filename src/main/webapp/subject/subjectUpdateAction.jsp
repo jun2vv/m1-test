@@ -3,6 +3,8 @@
 <%@ page import = "dao.*" %>
 <%@ page import = "util.*" %>
 <%
+	request.setCharacterEncoding("utf-8");
+
 	//요청값 검사
 	if(request.getParameter("subjectName")==null
 		||request.getParameter("subjectTime")==null
@@ -37,6 +39,7 @@
 	
 	if(row > 0) {
 		System.out.println("수정완료");
+		response.sendRedirect(request.getContextPath()+"/subject/subjectList.jsp");
 	} else {
 		System.out.println("수정실패");
 	}
