@@ -15,12 +15,12 @@
 	int subjectNo = Integer.parseInt(request.getParameter("subjectNo"));
 	System.out.println(subjectNo + " <--- subjectDeleteAction subjectNo");
 	
-	// 메서드 클래스 객채생성 후 사용가능
+	// 메서드 클래스 객채생성 후 메서드 사용가능
 	SubjectDao delDao = new SubjectDao();
 	
 	// deleteSubject메서드 반환값이 int타입이므로 int 변수에 지정해서 선언
 	int row = delDao.deleteSubject(subjectNo);
-	if(row > 1) {
+	if(row > 0) {
 		System.out.println("과목 삭제 성공");
 		response.sendRedirect(request.getContextPath()+"/subject/subjectList.jsp");
 	} else {

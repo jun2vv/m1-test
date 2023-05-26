@@ -32,25 +32,25 @@
 			<tr>
 				<th>과목이름</th>
 				<td>
-					<input type="text" value="<%=s.getSubjectName() %>" name="subjectName" readonly="readonly">
+					<input type="text" value="<%=s.getSubjectName() %>" readonly="readonly">
 				</td>
 			</tr>
 			<tr>
 				<th>과목시간</th>
 				<td>
-					<input type="text" value="<%=s.getSubjectTime() %>" name="subjectTime" readonly="readonly">분
+					<input type="text" value="<%=s.getSubjectTime() %>" readonly="readonly">시간
 				</td>
 			</tr>
 			<tr>
 				<th>과목개설일</th>
 				<td>
-					<input type="text" value="<%=s.getCreatedate() %>" name="subjectTime" readonly="readonly">분
+					<input type="text" value="<%=s.getCreatedate() %>" readonly="readonly">
 				</td>
 			</tr>
 			<tr>
 				<th>과목수정일</th>
 				<td>
-					<input type="text" value="<%=s.getUpdatedate() %>" name="subjectTime" readonly="readonly">분
+					<input type="text" value="<%=s.getUpdatedate() %>"  readonly="readonly">
 				</td>
 			</tr>
 		</table>

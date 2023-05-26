@@ -82,6 +82,7 @@ public class SubjectDao {
 		stmt.setInt(2, subject.getSubjectTime());
 		stmt.setInt(3, subject.getSubjectNo());
 		row = stmt.executeUpdate();
+		System.out.println(stmt + "<--- stmt");
 		return row;
 	}
 	

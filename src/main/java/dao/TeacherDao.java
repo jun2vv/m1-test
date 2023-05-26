@@ -68,7 +68,66 @@ public class TeacherDao {
 		return row;
 	}
 	
-	// count(*)
+	// 3) 상세보기
+	public Teacher selectTeacherOne(int teacherNo) throws Exception {
+		Teacher teacher = null;
+		DBUtil dbutil = new DBUtil();
+		Connection conn = dbutil.getConnection();
+		/*
+		 SELECT teacher_no, teacher_id, teacher_name, teacher_history, updatedate, createdate FROM teacher WHERE teacher_no = ?
+		 */
+		String sql="SELECT teacher_no teacherNo, teacher_id teacherId, teacher_name teacherName, teacher_history teacherHistory, updatedate, createdate FROM teacher WHERE teacher_no = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, teacherNo);
+		ResultSet rs = stmt.executeQuery();
+		
+		if(rs.next()) {
+			teacher = new Teacher();
+			teacher.setTeacherNo(rs.getInt("teacherNo"));
+			teacher.setTeacherId(rs.getString("teacherId"));
+			teacher.setTeacherName(rs.getString("teacherName"));
+			teacher.setTeacherHistory(rs.getString("teacherHistory"));
+			teacher.setUpdatedate(rs.getString("updatedate"));
+			teacher.setCreatedate(rs.getString("createdate"));
+		}
+		return teacher;
+	}
+	
+	// 4) 수정
+	public int updateTeacher(Teacher teacher) throws Exception {
+		int row = 0;
+		DBUtil dbutil = new DBUtil();
+		Connection conn = dbutil.getConnection();
+		/*
+		 UPDATE teacher SET teacher_id = ?, teacher_name, teacher_history, updatedate = now() WHERE teacher_no = ?
+		*/
+		String sql ="UPDATE teacher SET teacher_id = ?, teacher_name = ?, teacher_history = ?, updatedate = now() WHERE teacher_no = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, teacher.getTeacherId());
+		stmt.setString(2, teacher.getTeacherName());
+		stmt.setString(3, teacher.getTeacherHistory());
+		stmt.setInt(4, teacher.getTeacherNo());
+		row = stmt.executeUpdate();
+		System.out.println(stmt + "<--- stmt");
+		return row;
+	}
+	// 5) 삭제
+	public int deleteTeacher(int teacherNo) throws Exception {
+		
+		int row = 0;
+		DBUtil dbutil = new DBUtil();
+		Connection conn = dbutil.getConnection();
+		/*
+		 DELETE FROM teacher WHERE teacher_no = ?
+		 */
+		String sql = "DELETE FROM teacher WHERE teacher_no = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, teacherNo);
+		row = stmt.executeUpdate();
+		return row;
+		
+	}
+	// 6) count(*)
 	public int selectTeacherCnt() throws Exception {
 		// 반환할 전체 행의 수
 		int row = 0;

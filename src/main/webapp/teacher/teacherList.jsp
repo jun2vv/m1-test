@@ -66,9 +66,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <body>
 	<div class="container">
-	<h1>subject_list</h1>
+	<h1>강사목록</h1>
 	<table class="table table-bordered">
-		<tr class="table-danger">
+		<tr class="table-info">
 			<td>강사ID</td>
 			<td>강사이름</td>
 			<td>담당과목</td>
@@ -79,13 +79,14 @@
 		%>
 				<tr>
 					<td><%=map.get("teacherId") %></td>
-					<td><%=map.get("teacherName") %></td>
+					<td><a href="<%=request.getContextPath() %>/teacher/teacherOne.jsp?teacherNo=<%=map.get("teacherNo") %>"><%=map.get("teacherName")%></a></td>
 					<td><%=map.get("groupConcat") %></td>
 				</tr>
 		<% 
 			}
 		%>
 	</table>
+		<div><a class="btn btn-success" href="<%=request.getContextPath() %>/teacher/teacherInsert.jsp">과목추가</a></div>
 	
 		<% 
 			// 최소페이지가 1보다크면 이전페이지(이전페이지는 만약 내가 11페이지면 1페이지로 21페이지면 11페이지로)버튼
