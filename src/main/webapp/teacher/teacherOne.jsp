@@ -61,6 +61,7 @@
 		</table>
 		<a class="btn btn-success" href="<%=request.getContextPath() %>/teacher/teacherUpdate.jsp?teacherNo=<%=teacherNo%>">수정하기</a>
 		<a class="btn btn-danger" href="<%=request.getContextPath()%>/teacher/teacherDeleteAction.jsp?teacherNo=<%=teacherNo%>">강사삭제</a>
+		<a class="btn btn-info" href="<%=request.getContextPath()%>/teacher_subject/teacher_subject_update.jsp?teacherNo=<%=teacherNo%>">강사담당과목변경</a>
 	</div>
 </body>
 </html>

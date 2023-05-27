@@ -13,12 +13,12 @@ public class TeacherDao {
 	/*
 	 issue : 교과목이 연결되지 않은 강사는 출력되지 않는다. inner join -> outer join
 	 
-	SELECT t.teacher_no, t.teacher_id, t.teacher_name, s.subject_name, GROUP_CONCAT(s.subject_name, '/')
+	SELECT t.teacher_no, t.teacher_id, t.teacher_name, s.subject_name, ifnull(GROUP_CONCAT(s.subject_name),'없음')
 	FROM teacher t left outer JOIN teacher_subject ts
 					ON t.teacher_no = ts.teacher_no
 						left outer join subject s
-						ON ts.teacher_no = s.subject_no
-	GROUP BY t.teacher_no, t.teacher_id, t.teacher_name LIMIT 0, 10; 
+						ON ts.subject_no = s.subject_no
+	GROUP BY t.teacher_no, t.teacher_id, t.teacher_name LIMIT ?, ?; 
 	 
 	 */
 	public ArrayList<HashMap<String, Object>> selectTeacherListByPage(int beginRow, int rowPerPage) throws Exception {

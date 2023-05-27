@@ -68,4 +68,21 @@ public class TeacherSubjectDao {
 		return row;
 		
 	}
+	
+	// 4) update
+	public int updateTeacherSubject(TeacherSubject teacherSubject) throws Exception {
+		int row =0;
+		DBUtil dbutil = new DBUtil();
+		Connection conn = dbutil.getConnection();
+		/*
+		  UPDATE teacher_subject SET teacher_no = ? , subject_no = ?, updatedate = now() WHERE teacher_subject_no = ?
+		 */
+		String sql = "UPDATE teacher_subject SET teacher_no = ? , subject_no = ?, updatedate = now() WHERE teacher_subject_no = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, teacherSubject.getTeacherNo());
+		stmt.setInt(2, teacherSubject.getSubjectNo());
+		stmt.setInt(3, teacherSubject.getTeacherSubjectNo());
+		row = stmt.executeUpdate();
+		return row;
+	}
 }
