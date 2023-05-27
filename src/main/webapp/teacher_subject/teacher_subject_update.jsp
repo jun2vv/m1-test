@@ -1,3 +1,4 @@
+<%@page import="java.util.HashMap"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="vo.*" %>
@@ -24,7 +25,7 @@
 	Teacher t = tDao.selectTeacherOne(teacherNo);
 	
 	// subject_no와 name을 가져오기 위한 ArrayList객체
-	ArrayList<Subject> sList = tsDao.selectSubject();
+	ArrayList<HashMap<String,Object>> sList = tsDao.selectSubject();
 	
 %>
 <!DOCTYPE html>
@@ -46,10 +47,10 @@
 				<td>
 					<select name ="subjectNo">
 						<%
-							for(Subject s : sList) {
+							for(HashMap<String, Object> sMap : sList) {
 						%>
-							<option value="<%=s.getSubjectNo()%>">
-								<%=s.getSubjectName()%>
+							<option value="<%=sMap.get("subjectNo")%>">
+								<%=sMap.get("subjectName")%>
 							</option>
 						<% 	
 							}

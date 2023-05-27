@@ -1,13 +1,14 @@
 package dao;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import util.DBUtil;
 import vo.*;
 
 public class TeacherSubjectDao {
 	// 1) subject_name출력
-	public ArrayList<Subject> selectSubject() throws Exception {
-		ArrayList<Subject> sList = new ArrayList<>();
+	public ArrayList<HashMap<String, Object>> selectSubject() throws Exception {
 		DBUtil dbutil = new DBUtil();
 		Connection conn = dbutil.getConnection();	
 		/*
@@ -17,19 +18,19 @@ public class TeacherSubjectDao {
 		PreparedStatement sStmt = conn.prepareStatement(sql);
 		ResultSet rs = sStmt.executeQuery();
 		
+		ArrayList<HashMap<String,Object>> sList = new ArrayList<HashMap<String,Object>>();
 		while(rs.next()) {
-			Subject s = new Subject();
-			s.setSubjectNo(rs.getInt("subjectNo"));
-			s.setSubjectName(rs.getString("subjectName"));
-			sList.add(s);
+			HashMap<String,Object> map = new HashMap<String,Object>();
+			map.put("subjectNo", rs.getInt("subjectNo"));
+			map.put("subjectName", rs.getString("subjectName"));
+			sList.add(map);
 		}
 		System.out.println(sStmt + "<--- TeacherSubjectDao sStmt");
 		return sList;
 	}
 	
 	// 2) teacher_name출력
-	public ArrayList<Teacher> selectTeacher() throws Exception {
-		ArrayList<Teacher> tList = new ArrayList<>();
+	public ArrayList<HashMap<String, Object>> selectTeacher() throws Exception {
 		DBUtil dbutil = new DBUtil();
 		Connection conn = dbutil.getConnection();
 		/*
@@ -38,12 +39,12 @@ public class TeacherSubjectDao {
 		String sql="SELECT teacher_no teacherNo, teacher_name teacherName FROM teacher";
 		PreparedStatement tStmt = conn.prepareStatement(sql);
 		ResultSet rs = tStmt.executeQuery();
-		
+		ArrayList<HashMap<String, Object>> tList = new ArrayList<>();
 		while(rs.next()) {
-			Teacher t = new Teacher();
-			t.setTeacherNo(rs.getInt("teacherNo"));
-			t.setTeacherName(rs.getString("teacherName"));
-			tList.add(t);
+			HashMap<String,Object> map = new HashMap<String,Object>();
+			map.put("teacherNo", rs.getInt("teacherNo"));
+			map.put("teacherName", rs.getString("teacherName"));
+			tList.add(map);
 		}
 		System.out.println(tStmt + "<--- TeacherSubjectDao stmt");
 		return tList;	

@@ -1,3 +1,4 @@
+<%@page import="java.util.HashMap"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="vo.*" %>
@@ -15,9 +16,9 @@
 	TeacherSubjectDao tsDao = new TeacherSubjectDao();
 	
 	// teacher_no와 name을 가져오기 위한 ArrayList객체
-	ArrayList<Teacher> tList = tsDao.selectTeacher();
+	ArrayList<HashMap<String, Object>> tList = tsDao.selectTeacher();
 	// subject_no와 name을 가져오기 위한 ArrayList객체
-	ArrayList<Subject> sList = tsDao.selectSubject();
+	ArrayList<HashMap<String, Object>> sList = tsDao.selectSubject();
 	
 	
 %>
@@ -41,10 +42,10 @@
 					<!--  아래는 보여주는 값 -->
 					<select name ="teacherNo">
 						<%
-							for(Teacher t : tList) {
+							for(HashMap<String, Object> tMap : tList) {
 						%>
-							<option value="<%=t.getTeacherNo()%>">
-								<%=t.getTeacherName()%>
+							<option value="<%=tMap.get("teacherNo")%>">
+								<%=tMap.get("teacherName")%>
 							</option>
 						<% 	
 							}
@@ -59,10 +60,10 @@
 					<!--  아래는 보여주는 값 -->
 					<select name ="subjectNo">
 						<%
-							for(Subject s : sList) {
+							for(HashMap<String, Object> sMap : sList) {
 						%>
-							<option value="<%=s.getSubjectNo()%>">
-								<%=s.getSubjectName()%>
+							<option value="<%=sMap.get("subjectNo")%>">
+								<%=sMap.get("subjectName")%>
 							</option>
 						<% 	
 							}
